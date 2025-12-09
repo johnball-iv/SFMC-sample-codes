@@ -1,0 +1,30 @@
+-----Subject line personalization----- 
+%%[
+var @Incentive, @SweepstakesAmount, @SinglePersonHH, @FirstName
+set @Incentive = AttributeValue("Incentive")
+set @SweepstakesAmount = AttributeValue("SweepstakesAmount")
+set @SinglePersonHH = AttributeValue("SinglePersonHH")
+set @FirstName = AttributeValue("FirstName")
+]%%
+
+%%[
+IF EMPTY(FirstName) THEN
+SET @Subject = "There is still time to submit your diary"
+ELSE 
+SET @Subject = Concat(FirstName, ", there is still time to submit your diary")
+ENDIF
+]%%
+
+%%=v(@Subject)=%%
+
+----- LOOKUP PRODUCT RECOMMENDATIONS----- 
+
+SET @products = LookupOrderedRows("Product_Recommendations_DE", 4, "Priority ASC", 
+                                  "SubscriberKey", @subscriberKey)
+SET @productCount = RowCount(@products)
+
+/* If no personalized products, get default products */
+IF @productCount == 0 THEN
+  SET @products = LookupOrderedRows("Default_Products_DE", 4, "Priority ASC")
+  SET @productCount = RowCount(@products)
+ENDIF
