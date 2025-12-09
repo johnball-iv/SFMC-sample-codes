@@ -1,2 +1,2 @@
 # Ampscript-codes
-Ampscript sample codes
+just a place to keep some snippets. 
