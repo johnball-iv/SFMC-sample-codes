@@ -1,0 +1,16 @@
+/* Use Case: Find subscribers who joined in the last 7 days for a welcome series */
+/* What it does: Filters subscribers based on when they signed up */
+/* Key Concepts: Date functions (DATEADD, GETDATE) for time-based filtering */
+
+/* Find new subscribers from the past 7 days */
+SELECT 
+    SubscriberKey,
+    EmailAddress,
+    FirstName,
+    SignupDate
+FROM Subscribers_DE
+WHERE SignupDate >= DATEADD(day, -7, GETDATE())
+    AND Status = 'Active'
+ORDER BY SignupDate DESC
+
+/* What this returns: Subscribers who joined in the past week. Perfect for triggering a welcome email journey or onboarding sequence */
