@@ -1,8 +1,12 @@
+/* What it does: When email is opened or a CloudPage is visited, this script will take the SubscriberKey */
+/* update the record in the DE and sets LastLogin = now, Status = Active. Will also verify updates were successful */
+/* Key Concepts: Call DE, edit DE */
+
 <script runat="server">
 Platform.Load("Core","1");
 
 var api = new Script.Util.WSProxy();
-var deName = "UserStatus";
+var deName = "UserStatusDE";
 var record = {
     "SubscriberKey": _subscriberKey,
     "LastLogin": Now(),
